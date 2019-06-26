@@ -1,2 +1,2 @@
-# Pible_Simulator
-Simulate Pible lifetime based on energy gathered and operations executed. Just change parameters and run run_this.py
+# Pible
+Pible is an Perpetual energy harvesting mote for general Indoor BLE applications.
