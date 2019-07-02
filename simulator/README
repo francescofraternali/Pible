@@ -1,0 +1,2 @@
+open the "pible_simulator" and run it. It will plot supercapacitor voltage, light and PIR event detected. 
+To try different situations, open the file at the top and modify the parameters such as light itensity, how many PIR events to detect etc..
