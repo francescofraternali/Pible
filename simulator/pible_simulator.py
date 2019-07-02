@@ -1,6 +1,5 @@
 """
-Reinforcement learning.
-The RL is in RL_brain.py.
+Pible Simulator
 """
 
 import numpy as np
@@ -9,18 +8,25 @@ import time
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 
+# Parameter to change
+time_passed = 900 # Sensing data every "time_passed" time. In seconds.
+SC_perc_init = 100 # Super Capacitor initial voltage. Put "100" for maximum capacity at the beginning of the experiment
+light_lux = 250 # Average of light the solar panel receive during the "light_hours_per day"
+light_hours_per_day = 8 #starting from 8AM the system receive "light_lux" light for "light_hours_per_day" time
+days_simulators = 7 # Leave the simulaor running for this amount of time unless the node dies before such time
+
+
+# DO NOT MODIFY!  POWER CONSUMPTION PARAMETERS!
 SC_perc_min = 0; SC_perc_max = 100.0; SC_norm_max = 10; SC_norm_min = 0; SC_norm_min_die = 4; SC_volt_min = 2.1; SC_volt_max = 5.5; SC_size = 1.5
 light_real_min = 0; light_real_max= 2000; light_max = 10; light_min = 0
 
 i_sleep = 0.0000032; i_BLE_sens_1 = 0.000210; time_BLE_sens_1 = 6.5
-v_solar_200lux = 1.5/200; i_solar_200lux = 0.000031/200; # It was 1.5
-
-# Parameter to change
-time_passed = 900; SC_perc_init = 100; light_lux = 100; light_hours_per_day = 8 #starting from 8AM
+v_solar_200_lux = 1.5; i_solar_200_lux = 0.000031; # It was 1.5
+p_solar_1_lux = (v_solar_200_lux * i_solar_200_lux) / 200.0
 
 light_hist = []; time_hist = []; SC_norm_hist = []; SC_perc_hist = []; SC_volt_hist = []
 
-
+# Starting Simulator
 SC_volt = (SC_perc_init/SC_perc_max) * SC_volt_max
 SC_perc = SC_perc_init
 energy_rem = SC_volt * SC_volt * 0.5 * SC_size
@@ -40,14 +46,19 @@ while True:
     else:
         light = 0
 
-    energy_prod = time_passed * v_solar_200lux * i_solar_200lux * light
+    energy_prod = time_passed * p_solar_1_lux * light
 
-    # Update value for next iteration
+    # Update energy value for next iteration
     energy_rem = energy_rem - energy_used + energy_prod
+    #print(light)
+    #print("energy used", energy_used)
+    #print("energy prod", energy_prod)
     SC_volt = np.sqrt((2*energy_rem)/SC_size)
 
     if SC_volt > SC_volt_max:
         SC_volt = SC_volt_max
+
+    energy_rem = SC_volt * SC_volt * 0.5 * SC_size
 
     SC_perc = (SC_volt/SC_volt_max) * 100
 
@@ -57,13 +68,32 @@ while True:
     curr_time += datetime.timedelta(0, time_passed)
     days = int(curr_time.day)
 
-    if SC_volt <= SC_volt_min or days > 2:
+    if SC_volt <= SC_volt_min or days > days_simulators:
         break
 
-print("node lasted: " + str(curr_time.day))
+print("node lasted [days]: " + str(curr_time.day))
 
 #Start Plotting
-fig, ax = plt.subplots(1)
+plt.figure(1)
+plt.figure(1)
+plt.subplot(211)
+plt.title('Discharge\n ' + str(time_passed) + ' sec sensing-rate', fontsize=15)
+plt.plot(time_hist, light_hist, 'b^', label = 'SC Percentage', markersize = 10)
+plt.ylabel('Light [lux]', fontsize=15)
+plt.legend(loc=9, prop={'size': 10})
+plt.grid(True)
+plt.subplot(212)
+plt.plot(time_hist, SC_volt_hist, 'r.', label = 'SC Voltage', markersize = 15)
+plt.ylabel('Super Capacitor\nVoltage [V]', fontsize=15)
+plt.xlabel('Time [h]', fontsize=20)
+plt.legend(loc=9, prop={'size': 10})
+plt.grid(True)
+plt.show()
+
+fig, ax = plt.subplots(2)
+
+exit()
+
 
 fig.autofmt_xdate()
 plt.plot(time_hist, light_hist, 'b^', label = 'SC Percentage', markersize = 10)
