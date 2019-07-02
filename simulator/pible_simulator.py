@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import sys
 
 # Parameter to change
-sens_time_orig = 900 # Sensing data every "time_passed" time. In seconds.
+sens_time_orig = 900 # Sensing data every "sens_time_orig" seconds.
 SC_perc_init = 100 # Super Capacitor initial voltage. Put "100" for maximum capacity at the beginning of the experiment
 light_lux = 250 # Average of light the solar panel receive during the "light_hours_per day"
 light_hours_per_day = 8 #starting from 8AM the system receive "light_lux" light for "light_hours_per_day" time
