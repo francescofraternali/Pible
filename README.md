@@ -10,4 +10,4 @@ Pible is a battery-free mote for Perpetual Indoor BLE applications. It leverages
 
 It mounts the TI CC2650MODA that can be configured for Bluethoot Low Energy transmissions (i.e. BLE) and exploited for beaconing.
 
-![alt text](Pible.png)
+![Pible](Pible_multi.png)
