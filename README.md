@@ -12,5 +12,5 @@ It mounts the TI CC2650MODA that can be configured for Bluethoot Low Energy tran
 
 ![Pible](Pible_multi.png)
 
-Simulator:
-Simulator.py simulates Pible lifetime based on energy gathered and operations executed. Just change parameters and run run_this.py
+# Simulator:
+Inside the "simulator" folder you can run "pible_simulator.py" that simulates Pible lifetime based on energy gathered and operations executed. To check how Pible behaves under different environments, open the file and modify at the top of it the parameters such as light intensity, PIR events to detect etc. Enjoy!
