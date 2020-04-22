@@ -1,2 +1,3 @@
-open the "pible_simulator" and run it. It will plot supercapacitor voltage, light and PIR event detected. 
-To try different situations, open the file at the top and modify the parameters such as light itensity, how many PIR events to detect etc..
+To simulate Pible's behavior run "pible_simulator.py". The simulator will plot the supercapacitor voltage, light intensity and PIR events detected. 
+To check how Pible behaves under different environments, open the file and modify at the top of it the parameters such as light itensity, IR events to detect etc. 
+Enjoy!
